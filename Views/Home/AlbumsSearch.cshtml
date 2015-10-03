@@ -1,0 +1,74 @@
+﻿@model MvcMusicStore.ViewModels.AlbumsSearchViewModel
+@{
+    ViewBag.Title = "Albums Search";
+}
+
+<h2>
+    Albums Search</h2>
+<div style="width: 900px">
+    <form action="AlbumsSearch" method="post">
+    <fieldset>
+        <legend>Search Criteria</legend>
+        <div class="editor-label">
+            @Html.Label("Genre")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("GenreId")
+        </div>
+        <div class="editor-label">
+            @Html.Label("Artist")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ArtistId")
+        </div>
+        <div class="editor-label">
+            @Html.Label("Title")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SearchParameters.AlbumTitle, "AlbumTitle")
+        </div>
+        <p>
+            <input type="submit" value="Search" />
+        </p>
+    </fieldset>
+    </form>
+        @if (Model.SearchedAlbums.Count() > 0)
+        {
+            var webGrid = new WebGrid(Model.SearchedAlbums);            
+            @webGrid.GetHtml(columns: webGrid.Columns(
+                webGrid.Column("Genre", format: @<text>@item.Genre.Name</text>),
+                webGrid.Column("Artist", format: @:@item.Artist.Name
+                ),
+                webGrid.Column("Title"),
+                webGrid.Column("Price"),
+                webGrid.Column(format: @<text>@Html.ActionLink("Details", "Details", "Store", new { id = item.AlbumId }, null)</text>),
+                webGrid.Column(format: @<text>@Html.ActionLink("Add to Cart", "AddToCart", "ShoppingCart", new { id = item.AlbumId }, null)</text>)
+            ), headerStyle: "gridHeader")
+        }
+        else
+        {
+            <text><table>
+                <tr>
+                    <th>
+                        Genre
+                    </th>
+                    <th>
+                        Artist
+                    </th>
+                    <th>
+                        Title
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                    </th>
+                </tr>
+                <tr>
+                    <td colspan="5">
+                        There are no results to display
+                    </td>
+                </tr>
+            <table></text>
+        }
+</div>

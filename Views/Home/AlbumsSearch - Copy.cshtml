@@ -1,0 +1,90 @@
+﻿@model MvcMusicStore.ViewModels.AlbumsSearchViewModel
+@{
+    ViewBag.Title = "Albums Search";
+}
+
+<h2>
+    Albums Search</h2>
+<div style="width: 900px">
+    <form action="AlbumsSearch" method="post">
+    <fieldset>
+        <legend>Search Criteria</legend>
+        <div class="editor-label">
+            @Html.Label("Genre")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("GenreId")
+        </div>
+        <div class="editor-label">
+            @Html.Label("Artist")
+        </div>
+        <div class="editor-field">
+            @Html.DropDownList("ArtistId")
+        </div>
+        <div class="editor-label">
+            @Html.Label("Title")
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.SearchParameters.AlbumTitle, "AlbumTitle")
+        </div>
+        <p>
+            <input type="submit" value="Search" />
+        </p>
+    </fieldset>
+    </form>
+    @{
+        var webGrid = new WebGrid(Model.SearchedAlbums);        
+     }
+
+     @webGrid.GetHtml()
+    <table>
+        <tr>
+            <th>
+                Genre
+            </th>
+            <th>
+                Artist
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Price
+            </th>
+            <th>
+            </th>
+        </tr>
+        @if (Model.SearchedAlbums.Count() > 0)
+        {
+            foreach (var item in Model.SearchedAlbums)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Genre.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Artist.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", "Store", new { id = item.AlbumId }, "") |
+                    @Html.ActionLink("Add to cart", "AddToCart", "ShoppingCart", new { id = item.AlbumId }, "")
+                </td>
+            </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5">
+                    There are no results to display
+                </td>
+            </tr>
+        }
+    </table>
+</div>

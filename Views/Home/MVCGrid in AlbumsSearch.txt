@@ -1,0 +1,14 @@
+@using GridMvc.Html
+
+
+
+    <div>
+        @Html.Grid(Model.SearchedAlbums).Columns(columns =>
+           {
+               columns.Add(c => c.AlbumId, true).Titled("Album ID");
+               columns.Add(c => c.Genre.Name).Titled("Genre");
+               columns.Add(c => c.Artist.Name).Titled("Artist");
+               columns.Add(c => c.Title).Titled("Title");
+               columns.Add(c => c.Price).Titled("Price");
+           }).WithPaging(20).Sortable(true).EmptyText("There are no results to display")
+    </div>
