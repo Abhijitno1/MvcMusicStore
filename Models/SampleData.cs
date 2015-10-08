@@ -426,6 +426,12 @@ namespace MvcMusicStore.Models
                 new Album { Title = "Bach: The Cello Suites", Genre = genres.Single(g => g.Name == "Classical"), Price = 8.99M, Artist = artists.Single(a => a.Name == "Yo-Yo Ma"), AlbumArtUrl = "/Content/Images/placeholder.gif" },
                 new Album { Title = "Ao Vivo [IMPORT]", Genre = genres.Single(g => g.Name == "Latin"), Price = 8.99M, Artist = artists.Single(a => a.Name == "Zeca Pagodinho"), AlbumArtUrl = "/Content/Images/placeholder.gif" },
             }.ForEach(a => context.Albums.Add(a));
+
+            Array.ForEach(new User[] { 
+                new User() { UserName="abhijit", password="69fc9424eac26e5ad48fd6cb4d4207da", UserEmail="abhijitno1@yahoo.com"}, //mantra
+                new User() { UserName="shivani", password="ea7fd144f2edb73362f531981ed1d6c8"}, //shivani
+                new User() { UserName="vaishnavi", password="6141c805fa55a910521deca13030590d"} //vaishnavi
+            }, auser => context.Users.Add(auser));
         }
     }
 }
