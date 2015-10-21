@@ -15,7 +15,7 @@ namespace MvcMusicStore.Infrastructure
         {
             get
             {
-                throw new NotImplementedException();
+                return "MVCMusicStore";
             }
             set
             {

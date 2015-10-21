@@ -78,9 +78,13 @@
     <Compile Include="Infrastructure\CustomMembershipProvider.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Infrastructure\CustomRoleProvider.cs" />
+    <Compile Include="Infrastructure\UserIdentity.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Artist.cs" />
+    <Compile Include="Models\UserRole.cs" />
+    <Compile Include="Models\Role.cs" />
     <Compile Include="Models\UsersRepository.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\Genre.cs" />

@@ -427,10 +427,22 @@ namespace MvcMusicStore.Models
                 new Album { Title = "Ao Vivo [IMPORT]", Genre = genres.Single(g => g.Name == "Latin"), Price = 8.99M, Artist = artists.Single(a => a.Name == "Zeca Pagodinho"), AlbumArtUrl = "/Content/Images/placeholder.gif" },
             }.ForEach(a => context.Albums.Add(a));
 
+            var roles = new List<Role> { 
+                new Role{ RoleID=1, RoleName="Admin", RoleDescription="Administration"},
+                new Role{ RoleID=2, RoleName="Normal", RoleDescription="Regular User"},
+                new Role{ RoleID=3, RoleName="Guest", RoleDescription="Guest Role"}
+            };
+
+            var userRoles = new List<UserRole> { 
+                new UserRole{ UserId=1, RoleId=1, Role=roles.Single(role=> role.RoleID==1)},
+                new UserRole{ UserId=2, RoleId=2, Role=roles.Single(role=> role.RoleID==2)},
+                new UserRole{ UserId=3, RoleId=2, Role=roles.Single(role=> role.RoleID==2)}
+            };
+
             Array.ForEach(new User[] { 
-                new User() { UserName="abhijit", password="69fc9424eac26e5ad48fd6cb4d4207da", UserEmail="abhijitno1@yahoo.com"}, //mantra
-                new User() { UserName="shivani", password="ea7fd144f2edb73362f531981ed1d6c8"}, //shivani
-                new User() { UserName="vaishnavi", password="6141c805fa55a910521deca13030590d"} //vaishnavi
+                new User() { UserName="abhijit", password="69fc9424eac26e5ad48fd6cb4d4207da", UserEmail="abhijitno1@yahoo.com", UserRoles= new[] {userRoles[0]}}, //mantra
+                new User() { UserName="shivani", password="ea7fd144f2edb73362f531981ed1d6c8", UserRoles= new[] {userRoles[1]}}, //shivani
+                new User() { UserName="vaishnavi", password="6141c805fa55a910521deca13030590d", UserRoles= new[] {userRoles[2]}} //vaishnavi
             }, auser => context.Users.Add(auser));
         }
     }

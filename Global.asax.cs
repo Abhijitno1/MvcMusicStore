@@ -4,6 +4,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Web.Security;
+using System.Security.Principal;
 
 namespace MvcMusicStore
 {
@@ -38,5 +40,26 @@ namespace MvcMusicStore
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
         }
+
+        public override void Init()
+        {
+            this.PostAuthenticateRequest += new EventHandler(MvcApplication_PostAuthenticateRequest);
+            base.Init();
+        }
+
+        void MvcApplication_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie != null)
+            {
+                string encryptedTicket = authCookie.Value;
+                FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(encryptedTicket);
+                var currentUserIdentity = new Infrastructure.UserIdentity(ticket);
+                var roleNames = Roles.GetRolesForUser(currentUserIdentity.Name);
+                HttpContext.Current.User = new GenericPrincipal(currentUserIdentity, roleNames);
+            }
+        }
+
+        
     }
 }
