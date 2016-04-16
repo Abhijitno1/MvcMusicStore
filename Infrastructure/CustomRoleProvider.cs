@@ -58,16 +58,18 @@ namespace MvcMusicStore.Infrastructure
             string[] result = new string[0];
             using (var context = new MusicStoreEntities())
             {
-                /*
+
                 var roleNames = from user in context.Users
                                 where user.UserName.Trim().ToLower().Equals(username.Trim().ToLower())
                                 from userrole in user.UserRoles
-                                join context.rol
-                                select role.RoleName;
-                */
+                                select userrole.Role.RoleName;
+                result = roleNames.ToArray();
+                /*
+                 * alternate method
                 var user = context.Users.SingleOrDefault(match => match.UserName.Trim().ToLower().Equals(username.Trim().ToLower()));
                 if (user.UserRoles != null)
                     result = user.UserRoles.Select(urole => urole.Role).Select(role => role.RoleName).ToArray();
+                */ 
             }
             return result;
         }
