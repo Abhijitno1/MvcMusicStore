@@ -1,0 +1,30 @@
+﻿@model IEnumerable<MvcMusicStore.Models.Genre>
+@{
+    Layout = "~/Views/StoreManager/_StoreMgrLayout.cshtml";
+}
+@{
+    ViewBag.Title = "Store Manager - Genres";
+}
+<p>
+    @Html.ActionLink("Create New", "Create")
+    Genres Count: @Model.Count()
+</p>
+<table>
+    <tr>
+        <th>
+            Genre
+        </th>
+        <th>
+            Artist
+        </th>
+        <th>
+            Title
+        </th>
+        <th>
+            Price
+        </th>
+        <th>
+        </th>
+    </tr>
+ 
+</table>

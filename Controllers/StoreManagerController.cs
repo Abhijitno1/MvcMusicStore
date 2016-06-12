@@ -114,5 +114,10 @@ namespace MvcMusicStore.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
+
+        public ActionResult GenresMain()
+        {
+            return View(db.Genres.ToArray());
+        }
     }
 }
